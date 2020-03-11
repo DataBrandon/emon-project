@@ -1,0 +1,27 @@
+{
+  "name": "emon-project",
+  "version": "1.0.0",
+  "description": "Emon project Brandon van Ostaden & Gertinus Netten",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeMoordMuis/emon-project.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Brandon van Ostaden",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DeMoordMuis/emon-project/issues"
+  },
+  "homepage": "https://github.com/DeMoordMuis/emon-project#readme",
+  "dependencies": {
+    "mongoose": "^5.9.3",
+    "mqtt": "^3.0.0",
+    "validator": "^12.2.0"
+  }
+}
