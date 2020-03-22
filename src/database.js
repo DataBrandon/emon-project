@@ -22,17 +22,13 @@ class Database{
 
     _enterMeasure(json){
         
-        const et = json["electricity_tariff"];
-        const edt1 = json["energy_delivered_tariff1"];
-        const edt2 = json["energy_delivered_tariff2"];
-        const ert1 = json["energy_returned_tariff1"];
+        const temperature = json["T"];
+        const humidity = json["H"];
+        
         
         const rec = new DefaultModel({
-                                        electricity_tariff:et,
-                                        energy_delivered_tariff1:edt1,
-                                        energy_delivered_tariff2:edt2,
-                                        energy_returned_tariff1:ert1,
-                                        energy_returned_tariff2:ert2,
+                                        Temperature:temperature,
+                                        Humidity:humidity  
                                     });
                                     
             rec.save()
