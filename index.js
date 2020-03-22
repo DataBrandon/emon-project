@@ -34,12 +34,12 @@ const customsensor = mqtt.connect(sensor.host);
 
  
 
-client.on('message',(topic,message)=>{
-    console.log("received on topic" + topic + " message : " + message);
+// client.on('message',(topic,message)=>{
+//     console.log("received on topic" + topic + " message : " + message);
 
-    db._enterRecord(JSON.parse(message));
+//     db._enterRecord(JSON.parse(message));
 
-});
+// });
 
 
 customsensor.on('connect', ()=>{
