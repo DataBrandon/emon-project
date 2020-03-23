@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const settings = require('../settings');
 const DefaultModel = require('../model/default');
+const MoistModelv1 = require('../model/moistsensor');
 
 const server = settings.DB_HOST;
 const database = 'emon-proj';
@@ -21,12 +22,16 @@ class Database{
     }
 
     _enterMeasure(json){
-        
+        try{
+        const networkid = json["NID"];
+        const sensorid = json["SID"];
         const temperature = json["T"];
         const humidity = json["H"];
         
         
-        const rec = new DefaultModel({
+        const rec = new MoistModelv1({
+                                        NetworkId:networkid,
+                                        SensorId:sensorid,
                                         Temperature:temperature,
                                         Humidity:humidity  
                                     });
@@ -39,6 +44,8 @@ class Database{
                     console.log(err);
                 });
         }
+        catch{console.log("Could not Add to DB" + json);}
+    }
 
     _enterRecord(json){
         
@@ -62,6 +69,9 @@ class Database{
     const prl3 = json["power_returned_l3"];
     const timest = json["timestamp"];
     const sign = json["signature"];
+
+        
+    try{
 
        const rec = new DefaultModel({
                                     electricity_tariff:et,
@@ -95,7 +105,9 @@ class Database{
             });
     }
 
-
+    
+catch{console.log("Could not Add default to DB" + json);}
+    }
 }
 
 module.exports = new Database();

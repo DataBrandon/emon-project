@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 
-const portablesensorv1 = new  mongoose.Schema({
-
-
+const moistsensorv1 = new  mongoose.Schema({
+    NetworkId:Number,
+    SensorId:Number,
     Temperature:Number,
-    Humidity:Number,
+    Humidity:Number
 });
 
 module.exports = mongoose.model('MoistSensorV1',moistsensorv1);
