@@ -25,6 +25,7 @@ class Database{
         try{
         const networkid = json["NID"];
         const sensorid = json["SID"];
+        const date = new Date();
         const temperature = json["T"];
         const humidity = json["H"];
         
@@ -32,6 +33,7 @@ class Database{
         const rec = new MoistModelv1({
                                         NetworkId:networkid,
                                         SensorId:sensorid,
+                                        RecordDate:date,
                                         Temperature:temperature,
                                         Humidity:humidity  
                                     });
@@ -69,6 +71,7 @@ class Database{
     const prl3 = json["power_returned_l3"];
     const timest = json["timestamp"];
     const sign = json["signature"];
+    const date = new Date();
 
         
     try{
@@ -93,7 +96,8 @@ class Database{
                                     power_returned_l2:prl2,
                                     power_returned_l3:prl3,
                                     timestamp:timest,
-                                    signature:sign
+                                    signature:sign,
+                                    RecordDate:date
                                 });
                                 
         rec.save()

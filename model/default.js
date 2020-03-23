@@ -23,7 +23,8 @@ const standard = new  mongoose.Schema({
     power_returned_l2:Number,
     power_returned_l3:Number,
     timestamp:String,
-    signature:String
+    signature:String,
+    RecordDate:Date
     
 
 });
