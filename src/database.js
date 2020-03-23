@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const settings = require('../settings');
 const DefaultModel = require('../model/default');
@@ -5,6 +6,8 @@ const MoistModelv1 = require('../model/moistsensor');
 
 const server = settings.DB_HOST;
 const database = 'emon-proj';
+
+const port = process.env.PORT || 3000;
 
 class Database{
     constructor(){
