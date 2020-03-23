@@ -1,5 +1,5 @@
 {
-    "DB_HOST":"localhost:27017",
+    "DB_HOST":"mongolab-graceful-75353",
     "MQTT_BROKER":"sendlab.avansti.nl:11883",
     "MQTT_USERNAME":"smartmeter_admin",
     "MQTT_PASSWORD":"s3_sm4rtm3t3r",
