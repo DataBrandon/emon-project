@@ -7,15 +7,13 @@ const MoistModelv1 = require('../model/moistsensor');
 const server = settings.DB_HOST;
 const database = 'emon-proj';
 
-const port = process.env.PORT || 3000;
-
 class Database{
     constructor(){
         this._connect();
     }
 
     _connect() {
-        mongoose.connect(`mongodb://${server}/${database}`,{useNewUrlParser: true})
+        mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost',{useNewUrlParser: true})
           .then(() => {
             console.log('Database connection successful : ' + database);
           })
