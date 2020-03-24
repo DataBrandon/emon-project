@@ -17,6 +17,21 @@ router.get('/',async (req, res) => {
     }
 });
 
+router.get('/getsmart',async (req,res)=>{
+    try{
+        var sensors = await DefaultModel.distinct('signature').exec();
+        
+        if(sensors == null){
+            return res.status(404).json({message: "No sensors available" });
+        }
+        else{
+        res.json(sensors);
+        }
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+});
+
 
 router.get('/:id',async (req,res)=>{
     try{
@@ -35,6 +50,26 @@ router.get('/:id',async (req,res)=>{
 router.get('/:id/latest',async (req,res)=>{
     try{
         var sensors = await DefaultModel.findOne({signature:req.params.id},{},{sort: {'RecordDate' : -1}}).exec();
+        if(sensors == null){
+            return res.status(404).json({message: "No sensors available" });
+        }
+        else{
+        res.json(sensors);
+        }
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+});
+
+router.get('/:id/latest/:amount',async (req,res)=>{
+    try{
+        var sensors = await DefaultModel.aggregate([
+            {"$match":{signature:req.params.id}},
+            {"$sort":{'RecordDate' : -1}},
+            {"$limit": (parseInt(req.params.amount))},
+            {"$sort":{'RecordDate' : 1}}
+        ]).exec();
+        
         if(sensors == null){
             return res.status(404).json({message: "No sensors available" });
         }

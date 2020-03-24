@@ -18,6 +18,38 @@ router.get('/',async (req, res) => {
 });
 
 
+router.get('/getnid',async (req,res)=>{
+    try{
+        
+        var sensors = await MoistSensor.distinct('NetworkId').exec();
+        
+        if(sensors == null){
+            return res.status(404).json({message: "No sensors available" });
+        }
+        else{
+        res.json(sensors);
+        }
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+});
+
+router.get('/:nid/getsid',async (req,res)=>{
+    try{
+        
+        var sensors = await MoistSensor.find({NetworkId:req.params.nid}).distinct('SensorId').exec();
+        
+        if(sensors == null){
+            return res.status(404).json({message: "No sensors available" });
+        }
+        else{
+        res.json(sensors);
+        }
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+});
+
 router.get('/:nid',async (req,res)=>{
     try{
         var sensors = await MoistSensor.find({NetworkId:req.params.nid}).exec();
@@ -59,6 +91,27 @@ router.get('/:nid/:sid/latest',async (req,res)=>{
         res.status(500).json({message: err.message});
     }
 });
+
+router.get('/:nid/:sid/latest/:amount',async (req,res)=>{
+    try{
+        var sensors = await MoistSensor.aggregate([
+            {"$match": {$and : [{NetworkId:parseInt(req.params.nid)},{SensorId:parseInt(req.params.sid)}]}},
+            {"$sort":{'RecordDate' : -1}},
+            {"$limit": (parseInt(req.params.amount))},
+            {"$sort":{'RecordDate' : 1}}
+        ]).exec();
+        
+        if(sensors == null){
+            return res.status(404).json({message: "No sensors available" });
+        }
+        else{
+        res.json(sensors);
+        }
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+});
+
 
 router.get('/:nid/:sid/:startdate',async (req,res)=>{
     try{
