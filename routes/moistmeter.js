@@ -37,7 +37,7 @@ router.get('/getnid',async (req,res)=>{
 router.get('/:nid/getsid',async (req,res)=>{
     try{
         
-        var sensors = await MoistSensor.find({NetworkId:req.params.nid}).distinct('SensorId').exec();
+        var sensors = await MoistSensor.find({NetworkId:parseInt(req.params.nid)}).distinct('SensorId').exec();
         
         if(sensors == null){
             return res.status(404).json({message: "No sensors available" });
