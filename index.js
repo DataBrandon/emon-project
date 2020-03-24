@@ -4,6 +4,7 @@ const db = require('./src/database');
 const settings = require("./settings");
 const bro = require('./model/broker');
 
+const cors = require('cors');
 const express = require('express');
 const bp = require('body-parser');
 
@@ -15,6 +16,7 @@ const moistroute = require('./routes/moistmeter');
 
 var ex = express();
 ex.use(bp.json());
+ex.use(cors());
 
 ex.use('/smartmeter',smartroute);
 ex.use('/moistmeter',moistroute);
