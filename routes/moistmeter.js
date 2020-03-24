@@ -127,4 +127,37 @@ router.get('/:nid/:sid/:startdate',async (req,res)=>{
     }
 });
 
+router.get('/:nid/:sid/backd/:amount',async (req,res)=>{
+    try{
+        var now = new Date();
+        var daysback = new Date(now.valueOf() - (req.params.amount * (1000*3600*24)));
+        var sensors = await MoistSensor.find({$and : [{NetworkId:req.params.nid},{SensorId:req.params.sid},{RecordDate: {$gte: daysback}}]},{},{sort: {'RecordDate' : 1}}).exec();
+        if(sensors == null){
+            return res.status(404).json({message: "No sensors available" });
+        }
+        else{
+        res.json(sensors);
+        }
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+});
+
+router.get('/:nid/:sid/backh/:amount',async (req,res)=>{
+    try{
+        var now = new Date();
+        var hoursback = new Date(now.valueOf() - (req.params.amount * (1000*3600)));
+        var sensors = await MoistSensor.find({$and : [{NetworkId:req.params.nid},{SensorId:req.params.sid},{RecordDate: {$gte: hoursback}}]},{},{sort: {'RecordDate' : 1}}).exec();
+        if(sensors == null){
+            return res.status(404).json({message: "No sensors available" });
+        }
+        else{
+        res.json(sensors);
+        }
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+});
+
+
 module.exports = router;

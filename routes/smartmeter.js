@@ -97,6 +97,38 @@ router.get('/:id/:startdate',async (req,res)=>{
 });
 
 
+router.get('/:id/backd/:amount',async (req,res)=>{
+    try{
+        var now = new Date();
+        var daysback = new Date(now.valueOf() - (req.params.amount * (1000*3600*24)));
+        var sensors = await DefaultModel.find({$and : [{signature:req.params.id},{RecordDate: {$gte:daysback}}]},{},{sort: {'RecordDate' : 1}}).exec();
+        if(sensors == null){
+            return res.status(404).json({message: "No sensors available" });
+        }
+        else{
+        res.json(sensors);
+        }
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+});
+
+router.get('/:id/backh/:amount',async (req,res)=>{
+    try{
+        var now = new Date();
+        var hoursback = new Date(now.valueOf() - (req.params.amount * (1000*3600)));
+        var sensors = await DefaultModel.find({$and : [{signature:req.params.id},{RecordDate: {$gte:hoursback}}]},{},{sort: {'RecordDate' : 1}}).exec();
+        if(sensors == null){
+            return res.status(404).json({message: "No sensors available" });
+        }
+        else{
+        res.json(sensors);
+        }
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+});
+
 
 
 

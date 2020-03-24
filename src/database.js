@@ -26,6 +26,7 @@ class Database{
         try{
         const networkid = json["NID"];
         const sensorid = json["SID"];
+        //const date = new Date((new Date()).valueOf() + 1000*3600);
         const date = new Date();
         const temperature = json["T"];
         const humidity = json["H"];
@@ -72,8 +73,8 @@ class Database{
     const prl3 = json["power_returned_l3"];
     const timest = json["timestamp"];
     const sign = json["signature"];
+    // const date = new Date((new Date()).valueOf() + 1000*3600);
     const date = new Date();
-
         
     try{
 
