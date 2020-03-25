@@ -1,0 +1,9 @@
+<mat-form-field>
+    <mat-label>Selecteer een smartmeter</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let smartmeter of smartmeters" [value]="smartmeter.value">
+        {{smartmeter.viewValue}}
+      </mat-option>
+    </mat-select>
+</mat-form-field>
+<div id="chartContainerSmartMeter" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
